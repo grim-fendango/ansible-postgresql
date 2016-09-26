@@ -28,6 +28,7 @@
     password: "{{ postgresql.root_password }}"
     role_attr_flags: "SUPERUSER,CREATEROLE,CREATEDB,INHERIT,login"
     state: present
+    port: "{{ postgresql.port }}"
 
 - name: Ensure postgresql is running
   become: yes
