@@ -1,7 +1,6 @@
 # Postgresql Server
 
-Master: [![Build Status](https://travis-ci.org/ansible-city/postgresql.svg?branch=master)](https://travis-ci.org/ansible-city/postgresql)  
-Develop: [![Build Status](https://travis-ci.org/ansible-city/postgresql.svg?branch=develop)](https://travis-ci.org/ansible-city/postgresql)
+This is a fork of ansible-city.postgresql
 
 * [ansible.cfg](#ansible-cfg)
 * [Installation and Dependencies](#installation-and-dependencies)
@@ -29,15 +28,15 @@ hash_behaviour = merge
 
 ## Installation and Dependencies
 
-To install this role run `ansible-galaxy install ansible-city.postgresql` or add
-this to your `roles.yml`.
+To install this role run `ansible-galaxy install grim-fendango.postgresql` or add
+this to your `install_roles.yml`.
 
 ```YAML
-- src: ansible-city.postgresql
+- src: grim-fendango.postgresql
   version: v1.0
 ```
 
-and run `ansible-galaxy install -p ./roles -r roles.yml`
+and run `ansible-galaxy install -p ./roles -r install_roles.yml`
 
 
 
@@ -70,7 +69,7 @@ To simply install Postgresql server:
         - build
 
   roles:
-    - role: ansible-city.postgresql
+    - role: grim-fendango.postgresql
 ```
 
 Install with custom root password
@@ -95,8 +94,29 @@ Install with custom root password
         - build
 
   roles:
-    - role: ansible-city.postgresql
+    - role: grim-fendango.postgresql
       postgresql:
         root_password: "{{ my_service.db.password }}"
         root_user: "{{ my_service.db.user }}"
+```
+
+Configure db server accessibility from host machine
+
+```YAML
+- name: Install Postgresql
+  hosts: sandbox
+
+  pre_tasks:
+    - name: Update apt
+      become: yes
+      apt:
+        cache_valid_time: 1800
+        update_cache: yes
+      tags:
+        - build
+
+  roles:
+    - role: grim-fendango.postgresql
+      postgresql:
+        expose_to_host: true
 ```
