@@ -7,7 +7,7 @@ ident_file = '/etc/postgresql/{{ postgresql.version }}/main/pg_ident.conf'
 
 external_pid_file = '/var/run/postgresql/{{ postgresql.version }}-main.pid'
 
-{% if group_env == 'local' %}
+{% if postgresql.expose_to_host == true %}
 listen_addresses = '*'
 {% endif %}
 

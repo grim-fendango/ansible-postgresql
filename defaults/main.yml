@@ -11,6 +11,7 @@ postgresql:
   ssl: true
   timezone: "UTC"
   version: 9.5
+  expose_to_host: false
 
   service:
     state: started
